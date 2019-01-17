@@ -5,16 +5,17 @@
  */
 package org.zboot.framework.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.zboot.framework.datamodel.Entity;
+import org.zboot.framework.engine.EntityManager;
 import org.zboot.framework.service.EntityService;
 
 /**
- * @author　zhangchaochao
+ * @author zhangchaochao
  * @date 2019年1月17日
  * @version 下午2:05:10
  */
@@ -26,10 +27,19 @@ public class EntityAction {
 	@Autowired
 	EntityService entityService;
 
-    @RequestMapping("/create")
+	@Autowired
+	EntityManager entiyManager;
+
+	@RequestMapping("/create")
 	public Entity create() {
 		return entityService.create();
 
-    }
+	}
+	@RequestMapping("/list")
+	public Object list() {
+		List<Entity> list =  entiyManager.list("xzxk");
+		return list;
+
+	}
 
 }

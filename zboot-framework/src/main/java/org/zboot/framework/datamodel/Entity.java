@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.zboot.framework.setup.Config;
 
 import com.google.common.collect.Maps;
 
@@ -34,6 +36,9 @@ public class Entity  implements Serializable{
 	private Date dateModified;
 
 	@Field
+	private String type;
+
+	@Field
 	private Map<String,Object> properties;
 
 	@Field
@@ -43,13 +48,27 @@ public class Entity  implements Serializable{
 		if(this.dateCreated==null) {
 			this.dateCreated = new Date();
 		}
+		if(StringUtils.isBlank(this.type)) {
+			this.type = "zboot.Entity";
+		}
 	}
 
-	public String get_id() {
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		if(StringUtils.isNotBlank(type)) {
+			this.type = Config.COLLECTION_PREFIX+"#"+type;
+		}
+
+	}
+
+	public String getId() {
 		return _id;
 	}
 
-	public void set_id(String _id) {
+	public void setId(String _id) {
 		this._id = _id;
 	}
 

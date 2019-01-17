@@ -8,7 +8,7 @@ package org.zboot.framework.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zboot.framework.datamodel.Entity;
-import org.zboot.framework.engine.MongoDao;
+import org.zboot.framework.engine.EntityManager;;
 
 /**
  * @author　zhangchaochao
@@ -19,12 +19,14 @@ import org.zboot.framework.engine.MongoDao;
 public class EntityService {
 
 	@Autowired
-	private MongoDao mongo;
+	private EntityManager entityManager;
 
 	public Entity  create() {
 		Entity entity = new Entity();
 		entity.setProperty("name", "zcc");
-		return mongo.create(entity);
+		entity.setProperty("age", "22");
+		entity.setType("xzxk");
+		return entityManager.createEntity(entity);
 	}
 
 }
